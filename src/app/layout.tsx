@@ -4,12 +4,18 @@ import "@/app/ui/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const roboto = Roboto({
+  weight: ['400', '700'],
+  style: ['normal'],
+  subsets: ['latin'],
+  display: 'swap',
+})
+
 const basicFont = Ojuju({
   subsets: ['latin'],
   variable: '--font-basic',
   weight: '400',
 });
-
 
 export const metadata: Metadata = {
   title: "Create Next App",

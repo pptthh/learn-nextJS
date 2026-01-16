@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "clean-all": "rm -rf node_modules/ .next/ public/ scripts/ src/",
-    "clean-revert": "git checkout public/ scripts/",
-    "dev": "next dev",
     "build": "next build",
-    "start-clean": "pnpm i && pnpm build && pnpm dev",
+    "clean-all": "rm -rf node_modules/ .next/ public/ scripts/ src/",
+    "clean-revert": "git checkout public/ scripts/ src/",
+    "clean-start": "pnpm i && pnpm build && pnpm dev",
+    "dev": "next dev",
     "start": "next start",
     "lint": "next lint",
     "seed": "node -r dotenv/config ./scripts/seed.js"
