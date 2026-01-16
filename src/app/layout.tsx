@@ -4,13 +4,6 @@ import "@/app/ui/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const roboto = Roboto({
-  weight: ['400', '700'],
-  style: ['normal'],
-  subsets: ['latin'],
-  display: 'swap',
-})
-
 const ojuju = Ojuju({
   weight: ['400', '700'],
   style: ['normal'],
