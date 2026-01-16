@@ -4,12 +4,11 @@ import "@/app/ui/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const ojuju = Ojuju({
-  weight: ['400', '700'],
-  style: ['normal'],
+const basicFont = Ojuju({
   subsets: ['latin'],
-  display: 'swap',
-})
+  variable: '--font-basic',
+  weight: '400',
+});
 
 
 export const metadata: Metadata = {
@@ -24,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={ojuju.className}>{children}</body>
+      <body className={basicFont.className}>{children}</body>
     </html>
   );
 }
