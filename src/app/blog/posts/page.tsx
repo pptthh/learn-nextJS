@@ -2,12 +2,13 @@ import { connectToDB } from '@/app/lib/data';
 import { posts } from '@/app/lib/placeholder-data';
 import Post from '@/app/ui/components/posts/Post';
 
-export default function async Page() {
+export const Page = async () => {
   const client = await connectToDB();
   return (
     <>
-      {client && client?.connect && <p className='text-green-500'>Connected to DB</p>}
+      { client && <p className='text-green-500'>Connected to DB</p>}
       <h1>Posts</h1>
       {posts.map((post) => <Post key={post.id} {...post} />)}
-    </>)
-}
+    </>
+  );
+};
