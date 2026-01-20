@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
     "clean-all": "rm -rf node_modules/ .next/ public/ scripts/ src/ && git status",
     "clean-revert": "git checkout public/ scripts/ src/",
     "clean-start": "pnpm i && pnpm build && pnpm dev",
+    "copy-finish": "git checkout package.json",
     "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "seed": "node -r dotenv/config ./scripts/seed.js"
