@@ -1,5 +1,5 @@
 import { connectToDB, getPosts } from '@/app/lib/data';
-import { posts as _posts } from '@/app/lib/placeholder-data';
+// import { posts as _posts } from '@/app/lib/placeholder-data';
 import Post from '@/app/ui/components/posts/Post';
 
 const Page = async () => {
@@ -14,13 +14,7 @@ const Page = async () => {
       }
       <h1>Posts</h1>
       {posts?.map((post) => <Post {...post} />)}
-      <hr />
-      <hr />
-      <hr />
-      <hr />
-      <hr />
-      <hr />
-      {_posts?.map((post) => <Post key={post?.id} {...post} />)}
+      {/* {_posts?.map((post) => <Post key={post?.id} {...post} />)} */}
     </>
   );
 };
