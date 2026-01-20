@@ -4,7 +4,7 @@ import Post from '@/app/ui/components/posts/Post';
 
 const Page = async () => {
   const client = await connectToDB();
-  const posts = await getPosts();
+  const posts = await getPosts() as [];
   return (
     <>
       {
@@ -13,9 +13,14 @@ const Page = async () => {
        <p className='text-red-500'>Failed to Connect to DB</p>
       }
       <h1>Posts</h1>
-      {/* {posts.map((post) => <Post key={post.id} {...post} />)} */}
+      {posts?.map((post) => <Post {...post} />)}
       <hr />
-      {_posts.map((post) => <Post key={post.id} {...post} />)}
+      <hr />
+      <hr />
+      <hr />
+      <hr />
+      <hr />
+      {_posts?.map((post) => <Post key={post?.id} {...post} />)}
     </>
   );
 };
