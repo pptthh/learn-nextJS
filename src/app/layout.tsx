@@ -14,7 +14,7 @@ import "@/app/ui/styles/globals.css";
 const basicFont = Ojuju({
   subsets: ['latin'],
   variable: '--font-basic',
-  weight: '400',
+  weight: '500',
 });
 
 export const metadata: Metadata = {

@@ -6,7 +6,7 @@
     "clean-all": "rm -rf node_modules/ .next/ public/ scripts/ src/ && git status",
     "clean-revert": "git checkout public/ scripts/ src/",
     "clean-start": "pnpm i && pnpm build && pnpm dev",
-    "copy-finish": "git checkout package.json",
+    "copy-finish": "git checkout package.json  src/app/lib/data.ts src/app/layout.tsx && rm package-lock.json",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
