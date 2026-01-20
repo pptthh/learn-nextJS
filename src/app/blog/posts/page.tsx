@@ -3,10 +3,11 @@ import { Button } from "@/app/ui/components/button"
 import { posts } from '@/app/lib/placeholder-data';
 import Post from '@/app/ui/components/posts/Post';
 import { connectToDB, getPosts } from '@/app/lib/data';
+import { iPost } from "@/app/lib/interfaces";
 
 export default async function Page() {
   const client = await connectToDB();
-  const posts = await getPosts();
+  const posts = await getPosts() as iPost[] | undefined;
   return (
     <>
       {client && <p className='text-green-500 my-2'>Connected to database!</p>}
