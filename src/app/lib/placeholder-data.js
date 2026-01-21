@@ -69,14 +69,6 @@ const posts = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore e",
     date: "113002",
     user: "John D",
-  },
-  {
-    id: "724688be-3911-4bf7-8717-4ac8931daf8c",
-    title: "Post Title 10",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    date: "632982",
-    user: "Sandy L",
   }
 ];
 
