@@ -12,10 +12,7 @@ export default function Page() {
     date: new Date().toISOString().slice(0, 10)
   });
 
-  console.debug("insert/Page/ formData:", formData);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    console.debug("insert/Page/ handleChange:", formData);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prevData => ({
       ...prevData,
@@ -23,11 +20,10 @@ export default function Page() {
     }))
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.debug("insert/Page/ handleSubmit:", formData);
+  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const uuid = uuidv4();
-    fetch(`http://localhost:3000/api/insert-post?id=${uuid}&title=${formData.title}&content=${formData.content}&date=${formData.date}`, {
+    fetch(`/api/posts?id=${uuid}&title=${formData.title}&content=${formData.content}&date=${formData.date}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -56,7 +52,7 @@ export default function Page() {
         </div>
         <div>
           <label htmlFor="content" className="block font-medium">Content:</label>
-          <textarea id="content" name="content" rows={4} value={formData.content} onChange={handleChange} className="w-full border-2 border-purple-100 p-2 rounded-md focus:border-purple-200 focus:outline-none"></textarea>
+          <textarea id="content" name="content" rows="4" value={formData.content} onChange={handleChange} className="w-full border-2 border-purple-100 p-2 rounded-md focus:border-purple-200 focus:outline-none"></textarea>
         </div>
         <div>
           <label htmlFor="date" className="block font-medium">Date:</label>
