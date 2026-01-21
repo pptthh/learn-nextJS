@@ -6,7 +6,6 @@ async function seedPosts(client) {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
     // Create the "users" table if it doesn't exist
     const createTable = await client.sql`
-      DROP TABLE IF EXISTS posts;
       CREATE TABLE IF NOT EXISTS posts (
         id UUID DEFAULT uuid_generate_v1mc() PRIMARY KEY,
         author VARCHAR(255) NOT NULL,
