@@ -13,11 +13,10 @@ export async function connectToDB() {
 
 export async function getPosts() {
   try {
-    const data = await sql`SELECT * FROM posts`
+    const data = await sql `SELECT * FROM posts ORDER BY date DESC LIMIT 200`
     // console.log(data.rows)
     return data.rows;
   } catch (error) {
     console.error('Error getting posts', error);
   }
 }
-

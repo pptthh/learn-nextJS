@@ -12,7 +12,10 @@ export default function Page() {
     date: new Date().toISOString().slice(0, 10)
   });
 
+  console.debug("insert/Page/ formData:", formData);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    console.debug("insert/Page/ handleChange:", formData);
     const { name, value } = e.target;
     setFormData(prevData => ({
       ...prevData,
@@ -21,6 +24,7 @@ export default function Page() {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.debug("insert/Page/ handleSubmit:", formData);
     e.preventDefault();
     const uuid = uuidv4();
     fetch(`http://localhost:3000/api/insert-post?id=${uuid}&title=${formData.title}&content=${formData.content}&date=${formData.date}`, {
