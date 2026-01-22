@@ -18,9 +18,10 @@ export async function connectToDB() {
 export async function getPosts() {
   try {
     noStore();
-    await new Promise((resolve) => setTimeout(resolve, 30));
-    const data = await sql `SELECT * FROM posts order BY title, date LIMIT 200;`;
-    return data.rows;
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    const data = await sql`SELECT * FROM posts`
+    console.log(data.rows)
+    return data.rows
   } catch (error) {
     console.error('Error getting posts', error);
   }
