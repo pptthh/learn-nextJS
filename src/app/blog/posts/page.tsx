@@ -5,6 +5,9 @@ import { connectToDB, getPosts } from '@/app/lib/data';
 import { iPost } from "@/app/lib/interfaces";
 
 export default async function Page() {
+  if (Math.random() < 0.125){
+    throw new Error('Simulated random error!');
+  }
   const client = await connectToDB();
   const posts = await getPosts() as iPost[] | undefined;
   return (
