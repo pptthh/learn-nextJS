@@ -24,10 +24,9 @@ export async function POST(request: Request) {
     // SQL query to insert a new post
     // await sql `INSERT INTO posts (id, title, content, date) VALUES (${id}, ${title}, ${content}, ${date})`;
     const post = await sql `INSERT INTO posts (id, author, title, content, date) VALUES (${id}, 'Péter', ${title}, ${content}, ${date});`;
-    console.log('Inserted post:', post);
     return NextResponse.json({ result: post, message: 'Post successfully inserted' }, { status: 200 });
   } catch (error) {
-    console.log('Error inserting post:', error);
+    console.error('Error inserting post:', error);
     return NextResponse.json({ error }, { status: 500 });
   }
 }

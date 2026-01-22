@@ -19,7 +19,6 @@ export default function Page() {
   const [formData, setFormData] = useState(getEmptyFormData());
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    console.debug("insert/Page/ handleChange:", formData);
     const { name, value } = e.target;
     setFormData(prevData => ({
       ...prevData,
@@ -31,7 +30,6 @@ export default function Page() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const uuid = uuidv4();
-    console.debug("insert/Page/ handleSubmit:", formData, uuid);
     fetch(`/api/posts?id=${uuid}&title=${formData.title}&content=${formData.content}&date=${formData.date}`, {
       method: 'POST',
       headers: {
