@@ -3,26 +3,35 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation'
 import { v4 as uuidv4 } from 'uuid';
 
+const getCurrentDateTime = () => {
+  const now = new Date();
+  return now.toISOString().slice(0, 19).replace('T', ' ');
+};
+const getEmptyFormData = () => ({
+  id: '',
+  title: '',
+  content: '',
+  date: getCurrentDateTime()
+});
+
 export default function Page() {
   const router = useRouter()
-  const [formData, setFormData] = useState({
-    id: '',
-    title: '',
-    content: '',
-    date: new Date().toISOString().slice(0, 10)
-  });
+  const [formData, setFormData] = useState(getEmptyFormData());
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    console.debug("insert/Page/ handleChange:", formData);
     const { name, value } = e.target;
     setFormData(prevData => ({
       ...prevData,
+      date: getCurrentDateTime(),
       [name]: value
     }))
   };
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const uuid = uuidv4();
+    console.debug("insert/Page/ handleSubmit:", formData, uuid);
     fetch(`/api/posts?id=${uuid}&title=${formData.title}&content=${formData.content}&date=${formData.date}`, {
       method: 'POST',
       headers: {
@@ -31,15 +40,12 @@ export default function Page() {
       body: JSON.stringify({ ...formData, id: uuid })
     }).then(() => {
       // Clear form fields
-      setFormData({
-        id: '',
-        title: '',
-        content: '',
-        date: ''
-      });
+      setFormData(getEmptyFormData());
       router.push('/blog/posts');
     }).catch(console.error)
   }
+
+  console.debug("\ninsert/Page/default formData:", formData);
 
   return (
     <div className="bg-white p-8 rounded shadow">
@@ -52,7 +58,7 @@ export default function Page() {
         </div>
         <div>
           <label htmlFor="content" className="block font-medium">Content:</label>
-          <textarea id="content" name="content" rows="4" value={formData.content} onChange={handleChange} className="w-full border-2 border-purple-100 p-2 rounded-md focus:border-purple-200 focus:outline-none"></textarea>
+          <textarea id="content" name="content" rows={4} value={formData.content} onChange={handleChange} className="w-full border-2 border-purple-100 p-2 rounded-md focus:border-purple-200 focus:outline-none"></textarea>
         </div>
         <div>
           <label htmlFor="date" className="block font-medium">Date:</label>
