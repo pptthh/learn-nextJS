@@ -18,7 +18,7 @@ export async function getPosts() {
   try {
     noStore();
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    const data = await sql`SELECT * FROM posts`
+    const data = await sql`SELECT * FROM posts ORDER BY title DESC`;
     return data.rows
   } catch (error) {
     console.error('Error getting posts', error);

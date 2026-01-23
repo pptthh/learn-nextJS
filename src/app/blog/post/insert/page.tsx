@@ -43,8 +43,6 @@ export default function Page() {
     }).catch(console.error)
   }
 
-  console.debug("\ninsert/Page/default formData:", formData);
-
   return (
     <div className="bg-white p-8 rounded shadow">
       <h2 className="text-2xl mb-4 text-purple-700">New Blog Post</h2>

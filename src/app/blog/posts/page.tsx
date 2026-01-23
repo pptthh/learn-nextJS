@@ -1,3 +1,4 @@
+import React from "react"
 import Link from "next/link"
 import { Button } from "@/app/ui/components/button"
 import Post from '@/app/ui/components/posts/Post';
@@ -5,11 +6,13 @@ import { connectToDB, getPosts } from '@/app/lib/data';
 import { iPost } from "@/app/lib/interfaces";
 
 export default async function Page() {
-  if (Math.random() < 0.125){
+  if (Math.random() < 0.06125){
     throw new Error('Simulated random error!');
   }
+  
   const client = await connectToDB();
   const posts = await getPosts() as iPost[] | undefined;
+
   return (
     <>
       {client && posts && <p className='text-green-500 my-2'>Connected to database! (Length:{posts.length})</p>}
