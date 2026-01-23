@@ -1,5 +1,5 @@
 import NextAuth from "next-auth"
-import { sendVerificationRequest } from "./lib/authSendRequest"
+import { sendVerificationRequest } from "@/app/lib/authSendRequestAdv"
  
 export const { handlers, auth } = NextAuth({
   adapter,
