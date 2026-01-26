@@ -30,7 +30,7 @@ export async function sendVerificationRequest(params: Params) {
       to,
       subject: `Sign in to ${host}`,
       html: html({ url, host, theme }),
-      text: text({ url, host }),
+      text: JSON.stringify({ url, host }),
     }),
   })
  
@@ -84,9 +84,4 @@ function html(params: { url: string; host: string; theme: Theme }) {
   </table>
 </body>
 `
-}
-
-function text(params: TextParams) {
-  const { url, host } = params
-  return `Sign in to ${host}\n${url}\n\nIf you did not request this email you can safely ignore it.`
 }
