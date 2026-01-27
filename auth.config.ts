@@ -16,7 +16,8 @@ export const authConfig = {
     warn: (code, ...message) => {
       // Handle specific warning codes
       if (code === 'debug-enabled') {
-        console.log('[auth][info] Debug mode is enabled');
+        // console.log('[auth][info] Debug logging is enabled');
+        console.warn(`[auth][warn] ${code}:`, ...message, 'This is expected in development environments.', '\n\nDebug mode is enabled');
         return;
       }
       console.warn(`[auth][warn] ${code}:`, ...message);

@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   logging: {
-    // browserToTerminal: 'true',
+    browserToTerminal: 'true',
     fetches: {
       fullUrl: true,
       hmrRefreshes: true,
@@ -9,7 +9,7 @@ const nextConfig = {
     incomingRequests: {
       ignore: [
         ///\api\/v1\/health/
-    ],
+      ],
     },
   },
 };
