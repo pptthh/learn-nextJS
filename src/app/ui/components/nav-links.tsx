@@ -25,6 +25,16 @@ const links = [
 
 export default async function NavLinks() {
   const pathname = usePathname();
+  const consoleStringArray = [
+    'Rendering NavLinks component','Current pathname:', pathname
+  ];
+  
+  console.log ('log\t', ...consoleStringArray);
+  console.debug('debug\t', ...consoleStringArray);
+  console.info('info\t', ...consoleStringArray);
+  console.warn('warn\t', ...consoleStringArray);
+  console.error('error\t', ...consoleStringArray);
+
   return (
     <>
       {links.map((link) => {

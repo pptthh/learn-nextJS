@@ -1,5 +1,4 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   logging: {
     // browserToTerminal: 'true',
     fetches: {
@@ -7,9 +6,9 @@ const nextConfig = {
       hmrRefreshes: true,
     },
     incomingRequests: {
-      ignore: [/\api\/v1\/health/],
+      ignore: [
+        // /\api\/v1\/health/
+      ],
     },
   },
-};
-
-export default nextConfig;
+}

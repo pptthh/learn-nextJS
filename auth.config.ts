@@ -11,6 +11,7 @@ import LinkedInProvider from "next-auth/providers/linkedin";
 import SlackProvider from "next-auth/providers/slack";
 
 export const authConfig = {
+  trustHost: true,
   providers: [
     // EmailProvider({
     //   server: process.env.EMAIL_SERVER,
