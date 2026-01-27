@@ -12,11 +12,8 @@ export const logEnv = () => {
   console.log('\tOPENAI_API_KEY:', process.env.OPENAI_API_KEY);
   console.log('\tTEST_KEY:', process.env.TEST_KEY);
   console.log('\tprocess:', process);
-  // console.log('\tenv', process.env);
 
-//  console.log('Environment Variables:');
-
-  // for (const [key, value] of Object.entries(process.env)) {
-  //   console.log(`\t\t${key}: ${value}`);
-  // }
+  if (process.env.HOME !== undefined) {
+    console.log('\tglobalThis:', globalThis);
+  }
 };
