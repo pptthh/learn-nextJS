@@ -1,6 +1,7 @@
 module.exports = {
   logging: {
-    // browserToTerminal: 'true',
+    browserToTerminal: 'true',
+    trustHost: true,
     fetches: {
       fullUrl: true,
       hmrRefreshes: true,

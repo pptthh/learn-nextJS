@@ -20,13 +20,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  console.log ('log\t', 'Rendering RootLayout component');
-  console.debug('debug\t', 'Rendering RootLayout component');
-  console.info('info\t', 'Rendering RootLayout component');
-  console.warn('warn\t', 'Rendering RootLayout component');
-  console.error('error\t', 'Rendering RootLayout component');
-
   return (
     <html lang="en">
       <body className={roboto.className}>{children}</body>

@@ -1,5 +1,4 @@
-import NextAuth from "next-auth"
-import type { NextAuthConfig } from 'next-auth';
+import NextAuth, { type NextAuthConfig } from 'next-auth';
 import AzureADProvider from "next-auth/providers/microsoft-entra-id";
 import EmailProvider from "next-auth/providers/nodemailer";
 import FacebookProvider from "next-auth/providers/facebook";
@@ -12,6 +11,27 @@ import SlackProvider from "next-auth/providers/slack";
 
 export const authConfig = {
   trustHost: true,
+  debug: true,  // Enable debug logging
+  logger: {
+    warn: (code, ...message) => {
+      // Handle specific warning codes
+      if (code === 'debug-enabled') {
+        console.log('[auth][info] Debug mode is enabled');
+        return;
+      }
+      console.warn(`[auth][warn] ${code}:`, ...message);
+    },
+    error: (code, ...message) => {
+      console.error(`[auth][error] ${code}:`, ...message);
+    },
+    info: (code: string, ...message: []) => {
+      console.info(`[auth][info] ${code}:`, ...message);
+    },
+    debug: (code, ...message) => {
+      console.log(`[auth][debug] ${code}:`, ...message);
+    }
+  },
+  // trustedHosts: ['localhost', '127.0.0.1'],
   providers: [
     // EmailProvider({
     //   server: process.env.EMAIL_SERVER,

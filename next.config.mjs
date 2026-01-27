@@ -7,7 +7,9 @@ const nextConfig = {
       hmrRefreshes: true,
     },
     incomingRequests: {
-      ignore: [/\api\/v1\/health/],
+      ignore: [
+        ///\api\/v1\/health/
+    ],
     },
   },
 };
