@@ -1,38 +1,32 @@
 "use client";
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation'
 import { v4 as uuidv4 } from 'uuid';
+import { useState, useEffect, use } from 'react';
+import { useRouter } from 'next/navigation'
+import { User } from "@/app/lib/definition"
 import { getSession } from 'next-auth/react';
-import type { Session } from 'next-auth';
-import { User } from '@/app/lib/definition';
-import { logEnv } from '@/app/lib/utils';
-
-const getCurrentDateTime = () => {
-  const now = new Date();
-  return now.toISOString().slice(0, 19).replace('T', ' ');
-};
-const getEmptyFormData = () => ({
-  id: '',
-  title: '',
-  content: '',
-  date: getCurrentDateTime()
-});
 
 export default function Page() {
   const router = useRouter()
+  const PROMPT = "You are a creative blog writer. write a 50-word blog post about the title below. You can write anything you want, but it must be at least 50 words long. The title is: "
+  const [generating, setGenerating] = useState(false);
+  const [content, setContent] = useState('');
   const [user, setUser] = useState<User | null>(null);
-  const [formData, setFormData] = useState(getEmptyFormData());
+  const [formData, setFormData] = useState({
+    id: '',
+    title: '',
+    content: '',
+    date: new Date().toISOString().slice(0, 10)
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prevData => ({
       ...prevData,
-      date: getCurrentDateTime(),
       [name]: value
     }))
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const uuid = uuidv4();
     fetch(`/api/posts?id=${uuid}&title=${formData.title}&author=${user?.name}&content=${formData.content}&date=${formData.date}`, {
@@ -43,16 +37,44 @@ export default function Page() {
       body: JSON.stringify({ ...formData, id: uuid })
     }).then(() => {
       // Clear form fields
-      setFormData(getEmptyFormData());
+      setFormData({
+        id: '',
+        title: '',
+        content: '',
+        date: ''
+      });
       router.push('/blog/posts');
     }).catch(console.error)
   }
 
-  useEffect(() => {
-    logEnv();
+  const generateContent = () => {
+    setGenerating(true);
+    if (!formData?.title) { return false }
+    const requestParams = {
+      model: "gpt-3.5-turbo",
+      messages: [{ "role": "system", "content": PROMPT + formData?.title },
+      { "role": "user", "content": formData?.title },]
 
-    getSession().then((session: Session | null) => {
-      setUser(session?.user as User || null);
+    }
+    fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+      },
+      body: JSON.stringify(requestParams)
+    }).then(response => response.json())
+      .then(data => {
+        setContent(data.choices[0].message.content);
+        console.log(data.choices[0].message.content);
+        setGenerating(false);
+      }).catch(console.error);
+  }
+
+  useEffect(() => {
+    console.log("API KEY", process.env.OPENAI_API_KEY)
+    getSession().then((session) => {
+      setUser(session?.user || null);
       if (!session?.user) {
         router.push('/blog/posts');
       }
@@ -70,7 +92,9 @@ export default function Page() {
         </div>
         <div>
           <label htmlFor="content" className="block font-medium">Content:</label>
-          <textarea id="content" name="content" rows={4} value={formData.content} onChange={handleChange} className="w-full border-2 border-purple-100 p-2 rounded-md focus:border-purple-200 focus:outline-none"></textarea>
+          <textarea id="content" name="content" rows="4" value={formData.content} onChange={handleChange} className="w-full border-2 border-purple-100 p-2 rounded-md focus:border-purple-200 focus:outline-none"></textarea>
+          {generating && <p className='text-purple-700 my-1'>Generating content...</p>}
+          <button onClick={generateContent} type="button" className="bg-blue-400 text-white px-4 py-2 rounded-md bg-purple-600  hover:bg-purple-700">Generate Content</button>
         </div>
         <div>
           <label htmlFor="date" className="block font-medium">Date:</label>
@@ -84,3 +108,4 @@ export default function Page() {
     </div>
   );
 }
+

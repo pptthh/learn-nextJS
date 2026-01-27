@@ -1,13 +1,12 @@
 import { notFound } from 'next/navigation';
 // import { posts } from '@/app/lib/placeholder-data';
-import { getPosts } from '@/app/lib/data';
-import { iPost } from '@/app/lib/interfaces';
 import Post from '@/app/ui/components/posts/Post';
+import { connectToDB, getPosts } from '@/app/lib/data';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const posts = await getPosts();
-  const post = posts?.find((post) => post.id === params.id) as iPost | undefined;
-  
+  const post = posts?.find((post) => post.id === params.id); // empty string will never match any post (to test 404 errors)
+
   if (!post) {
     notFound();
   }
@@ -15,6 +14,5 @@ export default async function Page({ params }: { params: { id: string } }) {
     <>
       <h1>Post</h1>
       {post && <Post {...post} />}
-    </>
-  );
+    </>)
 }
