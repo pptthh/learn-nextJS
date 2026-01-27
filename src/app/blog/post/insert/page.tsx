@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getSession } from 'next-auth/react';
 import type { Session } from 'next-auth';
 import { User } from '@/app/lib/definition';
+import { logEnv } from '@/app/lib/utils';
 
 const getCurrentDateTime = () => {
   const now = new Date();
@@ -16,18 +17,6 @@ const getEmptyFormData = () => ({
   content: '',
   date: getCurrentDateTime()
 });
-
-export const logEnv = () => {
-  console.log('\tOPENAI_API_KEY', process.env.OPENAI_API_KEY);
-
-  console.log('\tenv', process.env);
-
-  console.log('Environment Variables:');
-
-  for (const [key, value] of Object.entries(process.env)) {
-    console.log(`\t\t${key}: ${value}`);
-  }
-}
 
 export default function Page() {
   const router = useRouter()

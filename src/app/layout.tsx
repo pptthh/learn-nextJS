@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Roboto } from "next/font/google";
 import "@/app/ui/styles/globals.css";
-import { logEnv } from "./blog/post/insert/page";
+import { logEnv } from "@/app/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 

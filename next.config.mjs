@@ -15,6 +15,7 @@ const nextConfig = {
   environment: process.env.NODE_ENV,
   env: {
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+    TEST_KEY: 'process.env.TEST_KEY',
   },
 };
 
