@@ -48,6 +48,9 @@ export default function Page() {
   }
 
   useEffect(() => {
+    console.log('\tenv', process.env);
+    console.log('\tOPENAI_API_KEY', process.env.OPENAI_API_KEY);
+
     getSession().then((session: Session | null) => {
       setUser(session?.user as User || null);
       if (!session?.user) {
