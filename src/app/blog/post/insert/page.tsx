@@ -17,6 +17,18 @@ const getEmptyFormData = () => ({
   date: getCurrentDateTime()
 });
 
+export const logEnv = () => {
+  console.log('\tOPENAI_API_KEY', process.env.OPENAI_API_KEY);
+
+  console.log('\tenv', process.env);
+
+  console.log('Environment Variables:');
+
+  for (const [key, value] of Object.entries(process.env)) {
+    console.log(`\t\t${key}: ${value}`);
+  }
+}
+
 export default function Page() {
   const router = useRouter()
   const [user, setUser] = useState<User | null>(null);
@@ -48,8 +60,7 @@ export default function Page() {
   }
 
   useEffect(() => {
-    console.log('\tenv', process.env);
-    console.log('\tOPENAI_API_KEY', process.env.OPENAI_API_KEY);
+    logEnv();
 
     getSession().then((session: Session | null) => {
       setUser(session?.user as User || null);

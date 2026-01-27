@@ -3,12 +3,6 @@ import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 import { auth } from "@/../auth.config"
 
-console.log ('log\t', 'Loaded posts API route');
-console.debug('debug\t', 'Loaded posts API route');
-console.info('info\t', 'Loaded posts API route');
-console.warn('warn\t', 'Loaded posts API route');
-console.error('error\t', 'Loaded posts API route');
-
 export async function GET() {
   try {
     const posts = await sql`SELECT * FROM posts ORDER BY date DESC LIMIT 2;`;
