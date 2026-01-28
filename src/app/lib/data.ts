@@ -7,6 +7,7 @@ export async function connectToDB() {
 
   try {
     if (client) {
+      console.log('Connected to database');
       return client;
     }
   } catch (error) {
@@ -17,8 +18,9 @@ export async function connectToDB() {
 export async function getPosts() {
   try {
     noStore();
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    const data = await sql`SELECT * FROM posts ORDER BY title DESC`;
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    const data = await sql`SELECT * FROM posts`
+    console.log(data.rows)
     return data.rows
   } catch (error) {
     console.error('Error getting posts', error);

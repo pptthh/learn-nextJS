@@ -1,5 +1,4 @@
 import { loadEnvConfig } from '@next/env'
 
-const projectDir = process.cwd();
-console.log('Loading env from ', projectDir);
+const projectDir = process.cwd()
 loadEnvConfig(projectDir)
