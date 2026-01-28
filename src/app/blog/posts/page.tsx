@@ -8,7 +8,7 @@ import { auth } from "../../../../auth.config"
 
 export default async function Page() {
   const client = await connectToDB();
-  const posts = await getPosts();
+  const posts = await getPosts()  as any[];
   const session = await auth()
   return (
     <>
