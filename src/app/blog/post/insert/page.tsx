@@ -52,14 +52,21 @@ export default function Page() {
 
   const generateContent = () => {
     setGenerating(true);
-    if (!formData?.title) { return false }
-    const requestParams = {
-      model: "gpt-3.5-turbo",
-      messages: [{ "role": "system", "content": PROMPT + formData?.title },
-      { "role": "user", "content": formData?.title },]
-
+    if (!formData?.title) {
+      return false;
     }
-    fetch('https://api.openai.com/v1/chat/completions', {
+    const requestParams = {
+      model: "gpt-5-mini",
+      input: [{
+        "role": "system",
+        "content": PROMPT + formData?.title 
+      }, {
+        "role": "user",
+        "content": formData?.title 
+      },]
+    }
+
+    fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +78,8 @@ export default function Page() {
         setContent(data.choices[0].message.content);
         console.log(data.choices[0].message.content);
         setGenerating(false);
-      }).catch(console.error);
+      })
+      .catch(console.error);
   }
 
   useEffect(() => {
