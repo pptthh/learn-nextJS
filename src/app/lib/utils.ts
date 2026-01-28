@@ -11,9 +11,9 @@ export const isDevelopment = !isProduction;
 export const logEnv = () => {
   console.log('\tOPENAI_API_KEY:', process.env.OPENAI_API_KEY);
   console.log('\tTEST_KEY:', process.env.TEST_KEY);
-  console.log('\tprocess:', process);
+  // console.log('\tprocess:', process);
 
-  if (process.env.HOME !== undefined) {
-    console.log('\tglobalThis:', globalThis);
-  }
+  // if (process.env.HOME !== undefined) {
+  //   console.log('\tglobalThis:', globalThis);
+  // }
 };
