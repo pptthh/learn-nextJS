@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { getSession } from 'next-auth/react';
 import type { Session } from 'next-auth';
 import { User } from '@/app/lib/definition';
-import { logEnv } from '@/app/lib/utils';
 
 const getCurrentDateTime = () => {
   const now = new Date();
@@ -76,8 +75,6 @@ export default function Page() {
   }
 
   useEffect(() => {
-    logEnv();
-
     getSession().then((session: Session | null) => {
       setUser(session?.user as User || null);
       if (!session?.user) {

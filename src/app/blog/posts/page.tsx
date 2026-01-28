@@ -4,14 +4,11 @@ import Post from '@/app/ui/components/posts/Post';
 import { connectToDB, getPosts } from '@/app/lib/data';
 import { iPost } from "@/app/lib/interfaces";
 import { auth } from "@/../auth.config";
-import { logEnv } from "@/app/lib/utils";
 
 export default async function Page() {
   const client = await connectToDB();
   const session = await auth()
   const posts = await getPosts() as iPost[] | undefined;
-
-  logEnv();
 
   return (
     <>
