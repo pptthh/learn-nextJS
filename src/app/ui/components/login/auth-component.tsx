@@ -8,7 +8,7 @@ export function SignIn({
   return (
     <form
       action={async () => {
-        // "use server"
+        // "use server"     //  nextjs 14 => 16 workaround
         await signIn(provider)
       }}
     >
@@ -21,7 +21,7 @@ export function SignOut(props: React.ComponentPropsWithRef<typeof Button>) {
   return (
     <form
       action={async () => {
-        // "use server"
+        // "use server"     //  nextjs 14 => 16 workaround
         await signOut()
       }}
       className="w-full"
