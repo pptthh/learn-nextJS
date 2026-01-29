@@ -1,6 +1,9 @@
+'use client'
 import { Avatar, AvatarFallback, AvatarImage } from "@/app/ui/components/avatar"
 import { Button } from "@/app/ui/components/button"
-import { auth } from "../../../../../auth.config"
+// import { auth } from "@/../auth.config"
+import { useSession } from "next-auth/react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,9 +14,14 @@ import {
 import { SignIn, SignOut } from "./auth-component"
 
 export default async function UserButton() {
-  const session = await auth()
+  //  const session = await auth()  // worked for nextjs 14
+  const { data: session, status } = useSession() || { data: null, status: 'unauthenticated' };
 
-  if (!session?.user) return <SignIn />
+  console.debug('UserButton useSession status:', status);
+  
+  if (!session?.user) 
+    return <SignIn />
+
   return (
     <div className="flex gap-2 items-center">
 

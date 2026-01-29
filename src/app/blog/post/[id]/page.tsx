@@ -5,8 +5,9 @@ import { iPost } from '@/app/lib/interfaces';
 import Post from '@/app/ui/components/posts/Post';
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const posts = await getPosts();
-  const post = posts?.find((post) => post.id === params.id) as iPost | undefined;
+  const posts = await getPosts() as iPost[] | undefined;
+  const { id } = await params;
+  const post = posts?.find((post: iPost) => post.id === id);
   
   if (!post) {
     notFound();

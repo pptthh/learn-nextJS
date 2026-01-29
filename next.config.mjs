@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    browserDebugInfoInTerminal: {
+      depthLimit: 5,
+      edgeLimit: 100,
+    },
+  },
   logging: {
-    browserToTerminal: 'true',
     fetches: {
       fullUrl: true,
       hmrRefreshes: true,

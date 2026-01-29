@@ -1,11 +1,14 @@
-const { db } = require("@vercel/postgres");
+// const { db } = require("@vercel/postgres");
+import { Pool, neon } from '@neondatabase/serverless';
 const { posts } = require("../src/app/lib/placeholder-data.js");
+
+const sql = neon(process.env.DATABASE_URL);
 
 async function seedPosts(client) {
   try {
-    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
     // Create the "users" table if it doesn't exist
-    const createTable = await client.sql`
+    const createTable = await sql`
       CREATE TABLE IF NOT EXISTS posts (
         id UUID DEFAULT uuid_generate_v1mc() PRIMARY KEY,
         author VARCHAR(255) NOT NULL,
@@ -20,7 +23,7 @@ async function seedPosts(client) {
     // Insert data into the "posts" table
     const insertedPosts = await Promise.all(
       posts.map(async (post) => {
-        return client.sql`
+        return sql`
         INSERT INTO posts (id, title, content, date, author)
         VALUES (${post.id}, ${post.title}, ${post.content}, ${post.date}, ${post.user})
         ON CONFLICT (id) DO NOTHING;
@@ -40,9 +43,10 @@ async function seedPosts(client) {
 }
 
 async function main() {
-  const client = await db.connect();
-  await seedPosts(client);
-  await client.end();
+  // const client = await db.connect();
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  await seedPosts(pool);
+  await pool.end();
 }
 
 main().catch((err) => {

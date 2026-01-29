@@ -1,7 +1,10 @@
-
-import { sql } from '@vercel/postgres';
+'use server';
+// import { sql } from '@vercel/postgres';
+import { neon } from '@neondatabase/serverless';
 import { NextResponse } from 'next/server';
 import { auth } from "@/../auth.config"
+
+const sql = neon(process.env.DATABASE_URL || '');
 
 export async function GET() {
   try {
