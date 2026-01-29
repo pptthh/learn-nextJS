@@ -13,11 +13,14 @@ import {
 } from "@/app/ui/components/dropdown-menu"
 import { SignIn, SignOut } from "./auth-component"
 
-export default async function UserButton() {
+export default function UserButton() {
+
+  return <SignIn />
+
   //  const session = await auth()  // worked for nextjs 14
   const { data: session, status } = useSession() || { data: null, status: 'unauthenticated' };
 
-  console.debug('UserButton useSession status:', status);
+  // console.debug('UserButton useSession status:', status);
   
   if (!session?.user) 
     return <SignIn />
@@ -26,22 +29,22 @@ export default async function UserButton() {
     <div className="flex gap-2 items-center">
 
       <span className="hidden text-sm sm:inline-flex">
-        {session.user.email}
+        {session?.user?.email}
       </span>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative w-8 h-8 rounded-full">
             <Avatar className="w-8 h-8">
-              {session.user.image && (
+              {session?.user?.image && (
                 <AvatarImage
                   src={
-                    session.user.image ??
+                    session?.user?.image ??
                     "https://source.boringavatars.com/beam/120"
                   }
-                  alt={session.user.name ?? ""}
+                  alt={session?.user?.name ?? ""}
                 />
               )}
-              <AvatarFallback>{session.user.email}</AvatarFallback>
+              <AvatarFallback>{session?.user?.email}</AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
@@ -49,10 +52,10 @@ export default async function UserButton() {
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium leading-none">
-                {session.user.name}
+                {session?.user?.name}
               </p>
               <p className="text-xs leading-none text-muted-foreground">
-                {session.user.email}
+                {session?.user?.email}
               </p>
             </div>
           </DropdownMenuLabel>
