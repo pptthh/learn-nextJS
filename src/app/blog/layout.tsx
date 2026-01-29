@@ -2,7 +2,7 @@
 import SideNav from "@/app/ui/components/sidenav";
 import { SessionProvider } from "next-auth/react";
 
-export default async function Layout({ children }: { children: React.ReactNode}) {
+export default function Layout({ children }: { children: React.ReactNode}) {
   return (
     <div className="flex h-screen flex-col md:flex-row md:overflow-hidden bg-white">
       <div className="w-full flex-none md:w-64">
